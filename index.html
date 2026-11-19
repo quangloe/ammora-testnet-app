@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ammora Testnet App</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 720px; margin: 24px auto; padding: 0 16px; color: #1a1a1a; }
+      h1 { font-size: 1.4rem; }
+      h2 { font-size: 1.05rem; margin-top: 0; }
+      section { border: 1px solid #ddd; border-radius: 10px; padding: 14px 16px; margin: 14px 0; }
+      button { padding: 8px 14px; border-radius: 8px; border: 1px solid #888; background: #fff; cursor: pointer; }
+      button:disabled { opacity: .5; cursor: not-allowed; }
+      input { padding: 8px; border-radius: 8px; border: 1px solid #aaa; width: 140px; }
+      .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+      .mono { font-family: ui-monospace, monospace; font-size: .85rem; word-break: break-all; }
+      .muted { color: #666; font-size: .9rem; }
+      .err { color: #b00020; }
+      .ok { color: #0a7d2c; }
+      ul { padding-left: 0; list-style: none; }
+      li { padding: 8px 0; border-bottom: 1px solid #eee; }
+    </style>
+  </head>
+  <body>
+    <h1>Ammora Testnet App (GIWA Sepolia)</h1>
+    <p class="muted">Chỉ dùng ETH testnet, không dùng ví chứa tiền thật.</p>
+
+    <section>
+      <h2>1. Kết nối ví</h2>
+      <div class="row">
+        <button id="connect">Kết nối ví + chuyển sang GIWA Sepolia</button>
+      </div>
+      <div id="account" class="mono muted">Chưa kết nối</div>
+      <div id="balance" class="muted"></div>
+    </section>
+
+    <section>
+      <h2>2. Danh sách launch trên testnet</h2>
+      <div class="row">
+        <button id="find" disabled>Tìm token mua được (quét chuỗi, khuyên dùng)</button>
+        <button id="load" disabled>Tải từ Data API (đang lỗi)</button>
+      </div>
+      <ul id="launches"></ul>
+    </section>
+
+    <section>
+      <h2>3. Mua thử token bằng ETH testnet</h2>
+      <div class="row">
+        <input id="tokenAddr" placeholder="Dán địa chỉ token (0x...)" style="width:100%" />
+        <button id="useAddr">Dùng địa chỉ này</button>
+      </div>
+      <div id="selected" class="mono muted">Chưa chọn token</div>
+      <div class="row">
+        <input id="amount" value="0.001" /> <span>ETH</span>
+        <button id="check" disabled>Kiểm tra token</button>
+        <button id="quote" disabled>Báo giá</button>
+        <button id="buy" disabled>Mua</button>
+        <button id="buyDirect" disabled title="Dùng khi báo giá báo 'no reviewed route'">Mua thẳng trên curve (qua WETH)</button>
+      </div>
+      <div class="row muted">
+        Quét pool trong <input id="lookback" value="200000" style="width:100px" /> block gần nhất
+        (1 block ≈ 1 giây; 200000 ≈ 2,3 ngày). Token cũ hơn thì tăng số này.
+      </div>
+      <div class="row muted">
+        RPC tuỳ chọn: <input id="rpcUrl" placeholder="để trống = RPC công khai của GIWA" style="width:100%" />
+      </div>
+      <div id="status" class="muted"></div>
+    </section>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
